@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@salutejs/plasma-icons": "^1.147.0",
+    "@salutejs/plasma-tokens": "^1.53.0",
+    "@salutejs/plasma-ui": "^1.194.0",
+    "styled-components": "^5.3.10"
+  }
+}
