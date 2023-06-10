@@ -1,12 +1,13 @@
-import React from 'react';
-
-import { Button } from '@salutejs/plasma-ui/components/Button/Button';
+import React,{ useState } from 'react';
 
 import {
     createSmartappDebugger,
     createAssistant,
 } from "@salutejs/client";
+
 import "./App.css";
+
+import SudokuBoard from './components/SudokuBoard';
 
 const initializeAssistant = (getState/*: any*/) => {
     if (process.env.NODE_ENV === "development") {
@@ -23,18 +24,26 @@ const initializeAssistant = (getState/*: any*/) => {
 export default class App extends React.Component {
     constructor(props) {
         super(props);
-
+        this.board = Array(9).fill(Array(9).fill(12));
+          
         this.state = {}
 
         this.assistant = initializeAssistant(() => this.getStateForAssistant() );
     }
 
-
+    // handleCellChange = (row, col, value) => {
+    //     const newBoard = this.board.map((r, i) => (i === row ? [...r.slice(0, col), value, ...r.slice(col + 1)] : r));
+    //     this.setBoard(newBoard);
+    // };
+    
+    
     render() {
-        return (
+          return (
             <div className="App">
+              <SudokuBoard board={this.board} onChange={this.handleCellChange} />
             </div>
-        );
+          );
+        
     }
 
     getStateForAssistant () {
@@ -42,3 +51,4 @@ export default class App extends React.Component {
         return state;
     }
 }
+
