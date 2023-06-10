@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Sudoku
+  version: '1.0'
+servers:
+  - url: not hosted yet
+paths:
+  /generate:
+    post:
+      tags:
+        - sudoku
+      summary: Generate sudoku field
+      operationId: generate_field
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateResponse'
+
+components:
+  schemas:
+    GenerateRequest:
+      required:
+        - size
+        - difficulty
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          example: 3
+        difficulty:
+          type: string
+          enum:
+            - easy
+            - medium
+            - hard
+    GenerateResponse:
+      type: object
+      properties:
+        size:
+          type: integer
+        difficulty:
+          type: string
+          enum:
+            - easy
+            - medium
+            - hard
+        field:
+          $ref: '#/components/schemas/Field'
+
+    Field:
+      type: array
+      items:
+        type: array
+        items:
+          type: integer
