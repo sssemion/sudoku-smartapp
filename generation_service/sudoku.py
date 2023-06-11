@@ -8,6 +8,7 @@ class Difficulty(StrEnum):
     EASY = 'easy'
     MEDIUM = 'medium'
     HARD = 'hard'
+    NOT_SET = ''
 
 
 class SudokuField:
@@ -106,6 +107,25 @@ class SudokuField:
         elif k > 0.25:
             return Difficulty.HARD
         return None
+
+    def validate(self) -> bool:
+        for row in self.field:
+            if sorted(row) != list(range(1, self.size ** 2 + 1)):
+                return False
+        self._transpose()
+        for col in self.field:
+            if sorted(col) != list(range(1, self.size ** 2 + 1)):
+                return False
+        self._transpose()
+        for sector_i in range(self.size):
+            for sector_j in range(self.size):
+                sector = set()
+                for i in range(sector_i * self.size, sector_i * self.size + self.size):
+                    for j in range(sector_j * self.size, sector_j * self.size + self.size):
+                        sector.add(self.field[i][j])
+                if sector != set(range(1, self.size ** 2 + 1)):
+                    return False
+        return True
 
     def __iter__(self) -> Iterator[list[int]]:
         return iter(self.field)
