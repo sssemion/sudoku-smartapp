@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, Suspense } from 'react';
 
 import {
     createSmartappDebugger,
@@ -8,6 +8,9 @@ import {
 import "./App.css";
 
 import SudokuBoard from './components/SudokuBoard';
+import MyButton from './components/MyButton';
+import Strings from './constants/strings';
+
 
 const initializeAssistant = (getState/*: any*/) => {
     if (process.env.NODE_ENV === "development") {
@@ -22,6 +25,7 @@ const initializeAssistant = (getState/*: any*/) => {
   
 
 export default class App extends React.Component {
+
     constructor(props) {
         super(props);
         this.board = Array(9).fill(Array(9).fill(12));
@@ -30,6 +34,8 @@ export default class App extends React.Component {
 
         this.assistant = initializeAssistant(() => this.getStateForAssistant() );
     }
+
+    
 
     // handleCellChange = (row, col, value) => {
     //     const newBoard = this.board.map((r, i) => (i === row ? [...r.slice(0, col), value, ...r.slice(col + 1)] : r));
@@ -40,7 +46,12 @@ export default class App extends React.Component {
     render() {
           return (
             <div className="App">
+                <Suspense fallback={<div>Loading</div>}>
               <SudokuBoard board={this.board} onChange={this.handleCellChange} />
+              </Suspense>
+              <MyButton title={Strings.check} view={Strings.primary}></MyButton>
+              <MyButton title={Strings.difficultyLevel} view={Strings.critical}></MyButton>
+              <MyButton title={Strings.startAgain}></MyButton>
             </div>
           );
         

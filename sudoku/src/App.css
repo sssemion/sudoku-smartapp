@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 body {
   background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
   height: 100vh;
@@ -7,6 +11,7 @@ body {
   margin: 0 auto;
   max-width: 960px;
   padding: 0 48px;
+  color: #004d7a;
 }
 
 .sudoku-board {
@@ -21,7 +26,7 @@ body {
 
 .sudoku-row {
   display: contents;
-
+  z-index: 1;
 }
 
 .sudoku-cell {
@@ -36,6 +41,7 @@ body {
   background-color: transparent;
   color: white;
   border-collapse: collapse;
+  z-index: 2;
 }
 
 .sudoku-cell:focus{
