@@ -49,11 +49,15 @@ export const Layout = () => {
 	}, [loading]);
 
 	return (
-		<div>
-			<SudokuBoard board={board} />
-			<MyButton title={Strings.check} view={Strings.primary}></MyButton>
-			<MyButton title={Strings.difficultyLevel} view={Strings.warning}></MyButton>
-			<MyButton title={Strings.startAgain} view={Strings.critical} onClick={() => fetchBoard('medium')}></MyButton>
+		<div className="App">
+            <div className="ButtonRow">
+                <MyButton title={Strings.check} view={Strings.primary}></MyButton>
+                <MyButton title={Strings.difficultyLevel} view={Strings.warning}></MyButton>
+                <MyButton title={Strings.startAgain} view={Strings.critical} onClick={() => fetchBoard('medium')}></MyButton>
+            </div>
+            <div className="BoardContainer">
+                <SudokuBoard board={board} />
+            </div>
 		</div>
 	)
 }
