@@ -7,13 +7,13 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <DeviceThemeProvider>
         <SSRProvider>
             <App />
             <GlobalStyle />
         </SSRProvider>
     </DeviceThemeProvider>,
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 

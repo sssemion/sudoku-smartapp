@@ -1,17 +1,18 @@
 import React from 'react';
 import {SudokuCell} from './SudokuCell';
 import "../App.css";
+import { useId } from 'react';
 
-export function SudokuRow(props) {
+export function SudokuRow({row, rowIndex}) {
     return (
       <div className="sudoku-row">
-        {props.row.map((cell, col) => (
+        {row.map((cell, index) => (
           <SudokuCell
-            key={col}
-            row={props.rowIndex}
-            col={col}
-            value={cell}
-            onChange={props.onChange}
+            key={useId()}
+            row={rowIndex}
+            col={index}
+            value_row={cell}
+            // onChange={props.onChange}
           />
         ))}
       </div>
