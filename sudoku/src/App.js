@@ -46,12 +46,16 @@ export default class App extends React.Component {
     render() {
           return (
             <div className="App">
-                <Suspense fallback={<div>Loading</div>}>
-              <SudokuBoard board={this.board} onChange={this.handleCellChange} />
-              </Suspense>
-              <MyButton title={Strings.check} view={Strings.primary}></MyButton>
-              <MyButton title={Strings.difficultyLevel} view={Strings.critical}></MyButton>
-              <MyButton title={Strings.startAgain}></MyButton>
+                <div className="ButtonRow">
+                    <MyButton title={Strings.check} view={Strings.primary}></MyButton>
+                    <MyButton title={Strings.difficultyLevel} view={Strings.critical}></MyButton>
+                    <MyButton title={Strings.startAgain}></MyButton>
+                </div>
+                <div className="BoardContainer">
+                    <Suspense fallback={<div>Loading</div>}>
+                        <SudokuBoard board={this.board} onChange={this.handleCellChange} />
+                    </Suspense>
+                </div>
             </div>
           );
         
