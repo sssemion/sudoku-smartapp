@@ -25,6 +25,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenerateResponse'
 
+  /validate:
+    post:
+      tags:
+        - sudoku
+      summary: Validate sudoku field
+      operationId: validate_field
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateResponse'
+
 components:
   schemas:
     GenerateRequest:
@@ -56,6 +76,20 @@ components:
             - hard
         field:
           $ref: '#/components/schemas/Field'
+
+    ValidateRequest:
+      required:
+        - field
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/Field'
+
+    ValidateResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
 
     Field:
       type: array

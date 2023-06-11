@@ -22,3 +22,14 @@ def generate() -> flask.Response | None:
     field.strike_out()
     result = flask.jsonify({'size': size, 'difficulty': difficulty.value, 'field': field.field})
     return result
+
+
+@api.route('/validate', methods=['POST'])
+def validate() -> flask.Response | None:
+    request = flask.request.json
+    if not (field := request.get('field')):
+        return flask.abort(400, 'Missing "field" parameter')
+    size = int(len(field) ** 0.5)
+    sudoku = SudokuField(size, Difficulty.NOT_SET)
+    sudoku.field = field
+    return flask.jsonify({'valid': sudoku.validate()})

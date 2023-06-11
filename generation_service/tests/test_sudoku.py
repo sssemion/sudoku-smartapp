@@ -52,3 +52,24 @@ def test_strike_out():
     for row in hard_field:
         empty_cell_count += row.count(0)
     assert 20 <= empty_cell_count < 25
+
+
+def test_validate():
+    field = SudokuField(3, Difficulty.EASY)
+    field.generate_field()
+    assert field.validate()
+
+    field.field[0][0] = field.field[0][1]
+    assert not field.validate()
+
+    field.generate_field()
+    assert field.validate()
+
+    field.field[0][0] = field.field[1][1]
+    assert not field.validate()
+
+    field.generate_field()
+    assert field.validate()
+
+    field.field[8][8] = field.field[6][6]
+    assert not field.validate()
