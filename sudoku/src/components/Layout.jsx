@@ -8,6 +8,8 @@ export const Layout = () => {
 	const [loading, setLoading] = useState(true)
 	const [board, setBoard] = useState(null);
 
+    
+
 	const fetchBoard = (difficulty) => {
 		let params = {
 			"size": 3,
@@ -31,7 +33,7 @@ export const Layout = () => {
 	useEffect(() => {
 		let params = {
 			"size": 3,
-			"difficulty": "easy",
+			"difficulty": "medium",
 		};
 		fetch("http://172.20.10.13:8888/api/v1/generate", {
 			method: "POST",
@@ -56,7 +58,10 @@ export const Layout = () => {
                 <MyButton title={Strings.startAgain} view={Strings.critical} onClick={() => fetchBoard('medium')}></MyButton>
             </div>
             <div className="BoardContainer">
-                <SudokuBoard board={board} />
+                {board==null
+                ? <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                : <SudokuBoard board={board} />}
+                
             </div>
 		</div>
 	)

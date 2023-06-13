@@ -7,4 +7,8 @@ export default class Strings{
     static primary='primary'
     static critical='critical'
     static warning='warning'
+
+    //api strings
+    static generate="http://172.20.10.13:8888/api/v1/generate";
+    
 }
