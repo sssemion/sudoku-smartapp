@@ -1,0 +1,53 @@
+.sudokuCell {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	border: none;
+	border-right: 1px solid rgba(255, 255, 255, 0.299);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.299);
+	background-color: transparent;
+	color: white;
+	border-collapse: collapse;
+	z-index: 2;
+}
+
+.sudokuCellFixed {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	border: none;
+	border-right: 1px solid rgba(255, 255, 255, 0.299);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.299);
+	background-color: transparent;
+	color: rgba(255, 255, 255, 0.417);
+	border-collapse: collapse;
+	z-index: 2;
+}
+
+.border {
+	border-bottom: 2px solid white;
+}
+
+.sudokuCell:focus {
+	background-color: #004d7a88;
+}
+
+.sudokuCell:nth-child(3n) {
+	border-right: 2px solid white;
+}
+
+.sudokuCell:last-child {
+	border-right: none;
+}
+
+.sudokuCellFixed:nth-child(3n) {
+	border-right: 2px solid white;
+}
+
+.sudokuCellFixed:last-child {
+	border-right: none;
+}
