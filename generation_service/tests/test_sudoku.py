@@ -35,7 +35,7 @@ def test_strike_out():
     empty_cell_count = 0
     for row in easy_field:
         empty_cell_count += row.count(0)
-    assert 30 <= empty_cell_count < 35
+    assert 20 <= empty_cell_count < 25
 
     medium_field = SudokuField(3, Difficulty.MEDIUM)
     medium_field.generate_field()
@@ -51,7 +51,7 @@ def test_strike_out():
     empty_cell_count = 0
     for row in hard_field:
         empty_cell_count += row.count(0)
-    assert 20 <= empty_cell_count < 25
+    assert 30 <= empty_cell_count < 35
 
 
 def test_validate():
