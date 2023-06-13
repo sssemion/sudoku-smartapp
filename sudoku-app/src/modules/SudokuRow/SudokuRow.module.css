@@ -1,0 +1,12 @@
+.sudokuRow {
+	display: contents;
+	z-index: 1;
+}
+
+.sudokuRow:nth-child(3n) * {
+	border-bottom: 2px solid white;
+}
+
+.sudokuRow:last-child *{
+	border-bottom: none;
+}
