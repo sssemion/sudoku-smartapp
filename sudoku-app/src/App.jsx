@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext, useContext } from 'react';
 import './App.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { findBoard, validateBoard } from './services';
@@ -10,6 +10,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Strings from './constants/Strings';
 import MyButton from './modules/MyButton/MyButton';
 import SberRadioButtons from './modules/CustomRadioButton/SberRadioButtons';
+import {
+    createSmartappDebugger,
+    createAssistant,
+} from "@salutejs/client";
 
 export const BoardContext = createContext({ board: [], setBoard: () => { } });
 
@@ -26,13 +30,13 @@ function countZeroes(matrix) {
 	return true;
 }
 
+var assistant = null;
+
 function App() {
 	const queryClient = useQueryClient();
 
 	const [board, setBoard] = useState(null);
 	const [verif, setVerif] = useState(false);
-
-	let primaryBoard = { size: 3, difficulty: 'easy', field: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]] };
 
 	//выбранный уровень сложности
 	const [buttonValue, setButtonValue] = useState("easy");
@@ -94,6 +98,50 @@ function App() {
 			}
 		},
 	});
+
+	// ASSISTANT
+
+	const initializeAssistant = (getState/*: any*/) => {
+		console.log(import.meta.env);
+		if (import.meta.env.MODE === "development") {
+			return createSmartappDebugger({
+				token: import.meta.env.VITE_TOKEN,
+				initPhrase: `Запусти судоку`,
+				getState,
+			});
+		}
+		return createAssistant({ getState });
+	};
+	
+	function handleAssistantData(data) {
+		if (data.type === "smart_app_data") {
+			if (data.action.type === "replay_with_difficulty") {
+				console.log("Replay request with difficulty: ", data.action.difficulty);
+				setButtonValue(data.action.difficulty);
+				handleStartAgainButton();
+			}
+	
+			else if (data.action.type === "quit") {
+				// Когда пользователь сказал "нет" на вопрос "давай сыграем в судоку?"
+			}
+	
+			else if (data.action.type === "validate") {
+				// Когда пользователь просит проверить
+			}
+		}
+	}
+	
+	function getStateForAssistant () {
+		const state = {};
+		return state;
+	}
+
+	if (assistant === null) {
+		assistant = initializeAssistant(() => getStateForAssistant() );
+		assistant.on('data', (data) => {handleAssistantData(data);});
+	}
+
+
 
 	return (
 		<BoardContext.Provider value={{ data, handleBoardChange }}>
