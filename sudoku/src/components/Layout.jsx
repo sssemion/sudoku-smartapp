@@ -13,7 +13,7 @@ export const Layout = () => {
 			"size": 3,
 			"difficulty": `${difficulty}`,
 		};
-		fetch("http://172.20.10.13:8888/api/v1/generate", {
+		fetch("https://bbamlm6cc4sq228u0rp1.containers.yandexcloud.net/api/v1/generate", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -23,7 +23,6 @@ export const Layout = () => {
 			.then(data => {
 				setBoard(data);
 				setLoading(false);
-				console.log(board);
 			}
 			)
 	}
@@ -33,7 +32,7 @@ export const Layout = () => {
 			"size": 3,
 			"difficulty": "easy",
 		};
-		fetch("http://172.20.10.13:8888/api/v1/generate", {
+		fetch("https://bbamlm6cc4sq228u0rp1.containers.yandexcloud.net/api/v1/generate", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -43,7 +42,6 @@ export const Layout = () => {
 			.then(data => {
 				setBoard(data);
 				setLoading(false);
-				console.log(board);
 			}
 			)
 	}, [loading]);

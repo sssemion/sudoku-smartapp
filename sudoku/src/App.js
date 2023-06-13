@@ -16,12 +16,29 @@ const initializeAssistant = (getState/*: any*/) => {
     if (process.env.NODE_ENV === "development") {
         return createSmartappDebugger({
         token: process.env.REACT_APP_TOKEN,
-        initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,
+        initPhrase: `Запусти судоку`,
         getState,
         });
     }
     return createAssistant({ getState });
 };
+
+function handleAssistantData(data) {
+    if (data.type === "smart_app_data") {
+        if (data.action.type === "replay_with_difficulty") {
+            console.log("Replay request with difficulty: ", data.action.difficulty);
+            // TODO: здесь будет вызов обновления борды
+        }
+
+        else if (data.action.type === "quit") {
+            // Когда пользователь сказал "нет" на вопрос "давай сыграем в судоку?"
+        }
+
+        else if (data.action.type === "validate") {
+            // Когда пользователь просит проверить
+        }
+    }
+}
   
 
 export default class App extends React.Component {
@@ -33,6 +50,8 @@ export default class App extends React.Component {
         this.state = {}
 
         this.assistant = initializeAssistant(() => this.getStateForAssistant() );
+
+        this.assistant.on('data', (data) => {handleAssistantData(data);});
     }
     
 
