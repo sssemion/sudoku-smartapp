@@ -13,6 +13,7 @@ export default class Strings{
     static validate='https://bbamlm6cc4sq228u0rp1.containers.yandexcloud.net/api/v1/validate';
     
     //уровни сложности
+    static chooseDifficulty='Выберите уровень сложности:';
     static easy = 'Лёгкий';
     static medium = 'Cредний';
     static hard = 'Cложный';

@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Strings from './constants/Strings';
 import MyButton from './modules/MyButton/MyButton';
+import SberRadioButtons from './modules/CustomRadioButton/SberRadioButtons';
 
 export const BoardContext = createContext({ board: [], setBoard: () => { } });
 
@@ -98,7 +99,7 @@ function App() {
 		<BoardContext.Provider value={{ data, handleBoardChange }}>
 			<div className='App'>
 				<div>
-					<CustomRadioButtons onChange={(e) => handleButtonValueChange(e.target.value)} value={buttonValue} ></CustomRadioButtons>
+					<SberRadioButtons onChange={(e) => handleButtonValueChange(e.target.value)} value={buttonValue} ></SberRadioButtons>
 				</div>
 
 				<div className="ButtonRow">

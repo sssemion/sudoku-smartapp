@@ -5,7 +5,7 @@ export function CustomRadioButtons({value, onChange}) {
   return (
     <div className="radio-group">
     <div>
-        <h3>Выберите уровень сложности:</h3>
+        <h3>{Strings.chooseDifficulty}</h3>
     </div>
     <div>
       <input type="radio" id="option1" name="options" value="easy" 
