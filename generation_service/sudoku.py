@@ -98,14 +98,15 @@ class SudokuField:
     def difficulty_by_cells_count(self, cells_count: int) -> Difficulty | None:
         total_cells = self.size ** 4
         k = (total_cells - cells_count) / total_cells
-        if k > 0.5:
+        delta = random.uniform(-0.01, 0.01)
+        if k > 0.5 + delta:
             return None
-        elif k > 0.4:
-            return Difficulty.EASY
-        elif k > 0.325:
-            return Difficulty.MEDIUM
-        elif k > 0.25:
+        elif k > 0.4 + delta:
             return Difficulty.HARD
+        elif k > 0.325 + delta:
+            return Difficulty.MEDIUM
+        elif k > 0.25 + delta:
+            return Difficulty.EASY
         return None
 
     def validate(self) -> bool:
