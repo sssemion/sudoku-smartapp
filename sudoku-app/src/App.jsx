@@ -94,6 +94,9 @@ function App() {
 				showToast(Strings.incorrect);
 			}
 		},
+		onError: () => {
+			showToast("Пашол ты нахуй!");
+		}
 	});
 
 	return (

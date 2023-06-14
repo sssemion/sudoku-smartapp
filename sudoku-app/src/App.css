@@ -34,6 +34,17 @@ input::-webkit-inner-spin-button {
 	justify-content: space-around;
 	margin: 1em 0 0;
 	flex-grow: 100;
+	max-width: 100%;
+	width: 100%;
+	align-items: center;
+}
+
+.BoardContainer > * {
+	max-width: 100%;
+	max-height: 100%;
+	aspect-ratio: 1/1;
+	height: fit-content;
+	width: fit-content;
 }
 
 .ButtonRow {
@@ -98,4 +109,10 @@ input::-webkit-inner-spin-button {
 	height: 100vh;
 	background-color: #0000005f;
 	z-index: 999;
+}
+
+@media (max-width: 600px){
+	.App {
+		padding: 2em 1em;
+	}
 }

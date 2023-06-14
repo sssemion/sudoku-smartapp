@@ -21,7 +21,5 @@ export default class Strings{
     //cообщение в тосте
     static correct = 'Поля заполнены верно!'
     static incorrect = 'Неверно, попробуйте исправить ошибки!';
-
-
-    
+    static notFilled = 'Не все поля заполнены';
 }
