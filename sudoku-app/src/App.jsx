@@ -149,6 +149,7 @@ function App() {
 	return (
 		<DifficultyContext.Provider value={{ buttonValue }}>
 			<BoardContext.Provider value={{ data, handleBoardChange }}>
+			{mutation.isLoading && <div class="spinnerContainer"><div class="spinner"></div></div>}
 				<div className='App'>
 					<div className='SelectDifficulty'>
 						<SberRadioButtons onChange={(e) => handleButtonValueChange({difficulty: e.target.value})} value={buttonValue.difficulty} ></SberRadioButtons>
@@ -161,7 +162,6 @@ function App() {
 					<ToastContainer toastStyle={{ backgroundColor: "#00000033" }} />
 
 					<div className='BoardContainer'>
-						{mutation.isLoading && <div class="spinner"></div>}
 						<SudokuBoard board={data} />
 					</div>
 

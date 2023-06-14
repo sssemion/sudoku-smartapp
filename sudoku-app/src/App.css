@@ -84,3 +84,18 @@ input::-webkit-inner-spin-button {
 	box-shadow: none; 
 	border: none; 
 }
+
+.spinner {
+	top: calc(50% - 2rem);
+	left: calc(50% - 2rem);
+}
+
+.spinnerContainer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: #0000005f;
+	z-index: 999;
+}
