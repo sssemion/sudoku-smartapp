@@ -9,14 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import Strings from './constants/Strings';
 import MyButton from './modules/MyButton/MyButton';
 import SberRadioButtons from './modules/CustomRadioButton/SberRadioButtons';
-import {
-    createSmartappDebugger,
-    createAssistant,
-} from "@salutejs/client";
+import Assistant from './modules/Assistant/Assistant';
 
 export const BoardContext = createContext({ board: [], setBoard: () => { } });
 
-export const DifficultyContext = createContext({ settedDifficulty: {} });
+export const AssistantContext = createContext({handleStart: () => {}, handleCheck: () => {}, setDifficulty: () => {}, buttonValue: {} });
+
 
 function countZeroes(matrix) {
 	if (!matrix) return;
@@ -29,8 +27,6 @@ function countZeroes(matrix) {
 	}
 	return true;
 }
-
-var assistant = null;
 
 function App() {
 	const queryClient = useQueryClient();
@@ -100,55 +96,10 @@ function App() {
 		},
 	});
 
-	// ASSISTANT
-
-	const initializeAssistant = (getState/*: any*/) => {
-		if (import.meta.env.MODE === "development") {
-			return createSmartappDebugger({
-				token: import.meta.env.VITE_TOKEN,
-				initPhrase: `Запусти судоку`,
-				getState,
-			});
-		}
-		return createAssistant({ getState });
-	};
-	
-	function handleAssistantData(data) {
-		if (data.type === "smart_app_data") {
-			if (data.action.type === "replay_with_difficulty") {
-				console.log("Replay request with difficulty: ", data.action.difficulty);
-				buttonValue.difficulty = data.action.difficulty;
-				setButtonValue(buttonValue);
-				console.log(buttonValue);
-				handleStartAgainButton();
-			}
-	
-			else if (data.action.type === "quit") {
-				// Когда пользователь сказал "нет" на вопрос "давай сыграем в судоку?"
-			}
-	
-			else if (data.action.type === "validate") {
-
-				// Когда пользователь просит проверить
-			}
-		}
-	}
-	
-	function getStateForAssistant () {
-		const state = {};
-		return state;
-	}
-
-	if (assistant === null) {
-		assistant = initializeAssistant(() => getStateForAssistant() );
-		assistant.on('data', (data) => {handleAssistantData(data);});
-	}
-
-
-
 	return (
-		<DifficultyContext.Provider value={{ buttonValue }}>
+		<AssistantContext.Provider value={{ handleStartAgainButton, handleClickCheckButton, setButtonValue, buttonValue }}>
 			<BoardContext.Provider value={{ data, handleBoardChange }}>
+				<Assistant />
 			{mutation.isLoading && <div class="spinnerContainer"><div class="spinner"></div></div>}
 				<div className='App'>
 					<div className='SelectDifficulty'>
@@ -167,7 +118,7 @@ function App() {
 
 				</div>
 			</BoardContext.Provider>
-		</DifficultyContext.Provider>
+		</AssistantContext.Provider>
 	);
 }
 
