@@ -6,7 +6,7 @@
 
 #root {
 	width: 100%;
-	height: 80%;
+	height: 85%;
 }
 
 body {
@@ -30,10 +30,10 @@ input::-webkit-inner-spin-button {
 .BoardContainer {
 	display: flex;
 	position: relative;
-	width: 100%;
-	height: 100%;
+	height: 0;
 	justify-content: space-around;
-	padding: 1em 0;
+	margin: 1em 0 0;
+	flex-grow: 100;
 }
 
 .ButtonRow {
@@ -41,14 +41,26 @@ input::-webkit-inner-spin-button {
 	flex-direction: row;
 	width: 100%;
 	justify-content: center;
+	margin: 1em 0 0
 }
 
 .ButtonRow > * {
 	margin: 0 1em;
-  }
+}
+
+.SelectDifficulty {
+	padding: 0.5em 1.5em;
+	border-radius: 0.75rem;
+	background-color: rgba(255,255,255,0.12);
+	--plasma-colors-accent: #008793;
+}
+
+.SelectDifficulty > * > * {
+	margin-bottom: 4px; 
+}
 
 .App {
-	padding: 1em 4em;
+	padding: 1em 4em 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

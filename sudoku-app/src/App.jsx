@@ -4,11 +4,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { findBoard, validateBoard } from './services';
 import { SudokuBoard } from './modules/SudokuBoard/SudokuBoard';
 import { CustomToast } from './modules/CustomToast/CustomToast';
-import { CustomRadioButtons } from './modules/CustomRadioButton/CustomRadioButton';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Strings from './constants/Strings';
-import { MyButton } from './modules/MyButton/MyButton';
+import MyButton from './modules/MyButton/MyButton';
 import SberRadioButtons from './modules/CustomRadioButton/SberRadioButtons';
 import {
     createSmartappDebugger,
@@ -151,7 +150,7 @@ function App() {
 		<DifficultyContext.Provider value={{ buttonValue }}>
 			<BoardContext.Provider value={{ data, handleBoardChange }}>
 				<div className='App'>
-					<div>
+					<div className='SelectDifficulty'>
 						<SberRadioButtons onChange={(e) => handleButtonValueChange({difficulty: e.target.value})} value={buttonValue.difficulty} ></SberRadioButtons>
 					</div>
 
