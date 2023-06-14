@@ -37,7 +37,7 @@ theme: /
 
     state: Replay
         q!: * (заново/еще раз/повтор/по новой/переигра*/реванш) *
-        a: Выбери сложность
+        a: Выберите сложность
         buttons:
             "Легко" -> /Replay/Easy
             "Средне" -> /Replay/Medium
@@ -66,9 +66,13 @@ theme: /
         a: Проверяю || auto_listening = false
         script:
             addAction({type: "validate"}, $context);
-    
+            
+    state: Rules
+        q!: * (правила/помоги*/помощь/не получается/не умею/как играть/что делать) *
+        script:
+            $reactions.answer($Answers["Rules"]);
     
     state: CatchAll
         q!: *
         event!: noMatch
-        a: К сожалению я не понимаю.
+        a: К сожалению, я не понимаю.

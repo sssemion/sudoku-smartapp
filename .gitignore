@@ -4,3 +4,4 @@ venv
 /generation_service/tests/.pytest_cache/
 **/__pycache__/
 sudoku/.env
+node_modules
