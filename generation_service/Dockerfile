@@ -1,8 +1,8 @@
 FROM python:3.11.4-slim-buster
 MAINTAINER sssemion
 RUN apt-get update -y
-COPY generation_service /app/generation_service
-COPY requirements.txt /app/requirements.txt
+COPY . /app/generation_service
+COPY ../requirements.txt /app/requirements.txt
 WORKDIR /app
 
 RUN pip3 install -r requirements.txt
