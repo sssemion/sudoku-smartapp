@@ -15,9 +15,6 @@ export const BoardContext = createContext({ board: [], setBoard: () => { } });
 
 export const AssistantContext = createContext({handleStart: () => {}, handleCheck: () => {}, setDifficulty: () => {}, buttonValue: {} });
 
-if (import.meta.hot) {
-	import.meta.hot.accept(() => import.meta.hot.invalidate())
-}
 
 function countZeroes(matrix) {
 	if (!matrix) return;

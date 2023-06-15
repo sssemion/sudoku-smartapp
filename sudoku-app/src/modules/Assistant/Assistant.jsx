@@ -13,6 +13,7 @@ export default function Assistant(props) {
 
     const initializeAssistant = (getState/*: any*/) => {
 		if (import.meta.env.MODE === "development") {
+			console.log("Development mode, creating smartapp debugger");
 			return createSmartappDebugger({
 				token: import.meta.env.VITE_TOKEN,
 				initPhrase: `Запусти судоку`,
