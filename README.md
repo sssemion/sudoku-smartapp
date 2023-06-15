@@ -1,6 +1,7 @@
 # sudoku-smartapp
 client-server-apps coursework
 
+## [Хостинг фронтенда](https://bba538c5pgem9l3nlphg.containers.yandexcloud.net/)
 
 ## Инструкция для локального запуска и тестирования:
 ### Бэкенд (Микросервис генерации поля):
