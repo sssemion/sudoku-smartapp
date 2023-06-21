@@ -30,12 +30,13 @@ input::-webkit-inner-spin-button {
 .BoardContainer {
 	display: flex;
 	position: relative;
-	height: 0;
 	justify-content: space-around;
 	margin: 1em 0 0;
 	flex-grow: 100;
 	max-width: 100%;
+	max-height: 100%;
 	width: 100%;
+	height: 100%;
 	align-items: center;
 }
 
@@ -49,14 +50,15 @@ input::-webkit-inner-spin-button {
 
 .ButtonRow {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
+	flex-shrink: 2;
 	width: 100%;
 	justify-content: center;
-	margin: 1em 0 0
+	margin: 1em 0 0;
 }
 
 .ButtonRow > * {
-	margin: 0 1em;
+	margin: 0 1em 0.5em;
 }
 
 .SelectDifficulty {
@@ -73,7 +75,8 @@ input::-webkit-inner-spin-button {
 .App {
 	padding: 1em 4em 0;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	flex-flow: row;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -115,4 +118,36 @@ input::-webkit-inner-spin-button {
 	.App {
 		padding: 2em 1em;
 	}
+}
+
+.ControlPanel {
+	display: flex;
+	flex-direction: column;
+	height: fit-content;
+	padding: 0 2em 0 0;
+}
+
+.Keyboard {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.Keyboard > button {
+	width: 31%;
+	margin: 1.16%;
+}
+
+.Keyboard > button:last-child {
+	flex-grow: 1;
+	margin: 0.25em 4em;
+}
+
+.activeCell {
+	background-color: #00263b88 !important;
+	outline: 3px solid #fff !important;
+	/* outline-offset: -3px; */
+	border-radius: 6px !important;
 }

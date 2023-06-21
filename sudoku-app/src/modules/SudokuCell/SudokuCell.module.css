@@ -33,7 +33,8 @@
 }
 
 .sudokuCell:focus {
-	background-color: #004d7a88;
+	background-color: #ffffff2b;
+	outline: none;
 }
 
 .sudokuCell:nth-child(3n) {
