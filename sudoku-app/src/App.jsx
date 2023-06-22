@@ -14,7 +14,7 @@ import Assistant from './modules/Assistant/Assistant';
 
 export const BoardContext = createContext({ board: [], setBoard: () => { } });
 
-export const CellContext = createContext({ cell: {row: null, col: null}, setCell: () => { } });
+export const CellContext = createContext({ cell: {active: {row: null, col: null}, focus: {row: null, col: null}}, setCell: () => { } });
 
 export const AssistantContext = createContext({handleStart: () => {}, handleCheck: () => {}, setDifficulty: () => {}, buttonValue: {} });
 
@@ -44,7 +44,7 @@ function App() {
 	const [toastVisible, setToastVisible] = useState(false);
 
 	//выбранная ячейка 
-	const [cell, setCell] = useState({row: null, col: null});
+	const [cell, setCell] = useState({active: {row: null, col: null}, focus: {row: null, col: null}});
 
 
 	function handleBoardChange(board) {

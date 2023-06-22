@@ -31,7 +31,7 @@ input::-webkit-inner-spin-button {
 	display: flex;
 	position: relative;
 	justify-content: space-around;
-	margin: 1em 0 0;
+	/* margin: 1em 0 0; */
 	flex-grow: 100;
 	max-width: 100%;
 	max-height: 100%;
@@ -157,6 +157,10 @@ input::-webkit-inner-spin-button {
 	border-radius: 6px !important;
 }
 
+.activeCell:focus {
+	background-color: #2d516488 !important;
+}
+
 .Dropdown {
 	--plasma-dropdown-padding: 0.25rem;
 	--plasma-dropdown-border-radius: 1rem;
@@ -164,7 +168,8 @@ input::-webkit-inner-spin-button {
 	--plasma-popup-width: 75%;
 	--plasma-popup-nested-padding: 0 var(--plasma-dropdown-padding, 0);
 	--plasma-popup-nested-margin: calc(var(--plasma-dropdown-padding, 0) * -1) 0 0;
-	--plasma-dropdown-background: #051937d6;
+	--plasma-dropdown-background: #051937dc;
+	z-index: 99999;
 }
 
 @media (max-aspect-ratio: 3/4) {
@@ -214,5 +219,97 @@ input::-webkit-inner-spin-button {
  @media (max-height: 700px) {
 	button {
 		font-size: 12px !important;
+	}
+ }
+
+ @media (max-width: 600px) {
+	.BoardContainer input {
+		font-size: 24px !important;
+	}
+
+	.App {
+		justify-content: space-around;
+	}
+
+	.BoardContainer {
+		margin-top: 1em;
+	}
+
+	.ControlPanel {
+		margin-top: 1em;
+		height: 100%;
+		flex-shrink: unset;
+		justify-content: start;
+	}
+
+	.Dropdown {
+		--plasma-dropdown-padding: 0.25rem;
+		--plasma-dropdown-border-radius: 1rem;
+		--plasma-dropdown-item-border-radius: 0.75rem;
+		--plasma-popup-width: 130%;
+	}
+ }
+
+ @media (max-width: 900px) {
+	.App {
+		padding: 1em 1.5em;
+	}
+
+	.ControlPanel {
+		padding-right: 0.5em;
+	}
+
+	.Keyboard > button {
+		padding: 0;
+	}
+
+	.Keyboard {
+		margin: 0;
+		width: 100%;
+	}
+ }
+
+ @media (min-width: 900px) {
+	.BoardContainer input {
+		font-size: 36px !important;
+	}
+
+	.ControlPanel * {
+		font-size: 20px;
+	}
+
+	.Keyboard > button {
+		height: 4em;
+	}
+ }
+
+ @media (min-width: 1600px) {
+	.BoardContainer input {
+		font-size: 48px !important;
+	}
+
+	.ControlPanel * {
+		font-size: 24px;
+	}
+
+	.BoardContainer {
+		flex-grow: 2;
+	}
+
+	.ControlPanel {
+		flex-shrink: 1;
+	}
+
+	.ControlPanel button {
+		height: fit-content;
+	}
+
+	.Keyboard > button {
+		height: 5em;
+	}
+
+	.ControlPanel button > span {
+		font-size: 30px;
+		line-height: 1.5em;
 	}
  }

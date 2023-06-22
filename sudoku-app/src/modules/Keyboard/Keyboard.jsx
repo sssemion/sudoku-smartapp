@@ -9,12 +9,12 @@ export function Keyboard() {
 	const { data, handleBoardChange } = useContext(BoardContext);
 
     function handleKeyClick(val) {
-        if (cell.row === null || cell.col === null) {
+        if (cell.active.row === null || cell.active.col === null) {
             return;
         }
-        data.field[cell.row][cell.col] = val;
+        data.field[cell.active.row][cell.active.col] = val;
         handleBoardChange(data);
-        setCell({row: cell.row, col: cell.col});
+        setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
     }
 
 	return (

@@ -1,26 +1,39 @@
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import MyButton from '../MyButton/MyButton';
-import { Dropdown } from '@salutejs/plasma-web';
+import { DropdownPopup, DropdownItem, DropdownList } from '@salutejs/plasma-web';
 import Strings from '../../constants/Strings';
 
 export default function SberRadioButtons({ value, onChange }) {
 ;
+    const [isOpen, setIsOpen] = useState(false);
+
+    function onSelect(difficulty) {
+        onChange(difficulty);
+        setIsOpen(false);
+    }
+
+    function keyDown(e) {
+        if (e.key == 'Enter') {
+            e.target.click();
+        }
+    }
 
     return (
         
-        <Dropdown
+        <DropdownPopup
+            isOpen={isOpen}
+            trigger="click"
             className='Dropdown'
             id="example-dropdown-click"
-            items={[
-                { value: 'easy', label: Strings.easy, color: '#32a852' },
-                { value: 'medium', label: Strings.medium, color: '#d1ab00' },
-                { value: 'hard', label: Strings.hard, color: '#d13400' }
-            ]}
-            trigger="click"
-            onItemSelect={onChange}
-            placement='bottom'
+            placement='auto'
+            onToggle={(is) => setIsOpen(is)}
+            disclosure={<MyButton title={`Уровень: ${value.label}`} />}
         >
-            <MyButton title={`Уровень: ${value.label}`} />
-        </Dropdown>
+            <DropdownList>
+                <DropdownItem tabIndex={0} value='easy' label={Strings.easy} color='#32a852' onClick={onSelect} onKeyDown={keyDown}  />
+                <DropdownItem tabIndex={0} value='medium' label={Strings.medium} color="#d1ab00" onClick={onSelect} onKeyDown={keyDown} />
+                <DropdownItem tabIndex={0} value='hard' label={Strings.hard} color="#d13400" onClick={onSelect} onKeyDown={keyDown} />
+            </DropdownList>
+        </DropdownPopup>
     );
 }

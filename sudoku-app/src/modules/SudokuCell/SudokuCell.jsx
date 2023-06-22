@@ -22,7 +22,7 @@ export function SudokuCell({ row, col, value_row }) {
 
 	useEffect(() => {
 		const allActive = Array.from(
-			document.getElementsByClassName('activeCell')
+			document.getElementsByClassName('focusCell')
 		);
 		for (var i = 0; i < allActive.length; i++) {
 			allActive[i].focus();
@@ -45,7 +45,7 @@ export function SudokuCell({ row, col, value_row }) {
 				/>
 			) : (
 				<input
-					className={cl.sudokuCell + (row == cell.row && col == cell.col ? ' activeCell' : '')}
+					className={cl.sudokuCell + (row == cell.active.row && col == cell.active.col ? ' activeCell' : '') + (row == cell.focus.row && col == cell.focus.col ? ' focusCell' : '')}
 					type='text'
 					maxLength='1'
 					value={value ? value : ''}
@@ -55,25 +55,27 @@ export function SudokuCell({ row, col, value_row }) {
 						handleBoardChange(data);
 					}}
 					onClick={e => {
-						cell.row = row;
-						cell.col = col;
+						cell.active.row = row;
+						cell.active.col = col;
+						cell.focus.row = row;
+						cell.focus.col = col;
 						handleBoardChange(data);
-						setCell({row: cell.row, col: cell.col});
+						setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
 					}}
 					onKeyDown={e => {
 						if (e.key === 'Backspace') {
-							data.field[cell.row][cell.col] = '';
+							data.field[cell.active.row][cell.active.col] = '';
 							handleBoardChange(data);
-							setCell({row: cell.row, col: cell.col});
+							setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
 						}
 						else if (_isNumberInRange(e.key)) {
-							data.field[cell.row][cell.col] = e.key;
+							data.field[cell.active.row][cell.active.col] = e.key;
 							handleBoardChange(data);
-							setCell({row: cell.row, col: cell.col});
+							setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
 						}
 						else if (e.key === 'ArrowLeft') {
-							var col_ = cell.col - 1;
-							var row_ = cell.row;
+							var col_ = cell.focus.col - 1;
+							var row_ = cell.focus.row;
 							while (col_ >= 0 && data.field[row_][col_] < 0) {
 								if (row_ > 0 && data.field[row_ - 1][col_] >= 0) {
 									row_--;
@@ -86,14 +88,14 @@ export function SudokuCell({ row, col, value_row }) {
 								col_--;
 							}
 							if (col_ >= 0 && data.field[row_][col_] >= 0) {
-								cell.col = col_;
-								cell.row = row_;
-								setCell({row: cell.row, col: cell.col});
+								cell.focus.col = col_;
+								cell.focus.row = row_;
+								setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
 							}
 						}
 						else if (e.key === 'ArrowRight') {
-							var col_ = cell.col + 1;
-							var row_ = cell.row;
+							var col_ = cell.focus.col + 1;
+							var row_ = cell.focus.row;
 							while (col_ <= 8 && data.field[row_][col_] < 0) {
 								if (row_ > 0 && data.field[row_ - 1][col_] >= 0) {
 									row_--;
@@ -106,14 +108,14 @@ export function SudokuCell({ row, col, value_row }) {
 								col_++;
 							}
 							if (col_ <= 8 && data.field[row_][col_] >= 0) {
-								cell.col = col_;
-								cell.row = row_;
-								setCell({row: cell.row, col: cell.col});
+								cell.focus.col = col_;
+								cell.focus.row = row_;
+								setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
 							}
 						}
 						else if (e.key === 'ArrowUp') {
-							var col_ = cell.col;
-							var row_ = cell.row - 1;
+							var col_ = cell.focus.col;
+							var row_ = cell.focus.row - 1;
 							while (row_ >= 0 && data.field[row_][col_] < 0) {
 								if (col_ > 0 && data.field[row_][col_ - 1] >= 0) {
 									col_--;
@@ -126,14 +128,14 @@ export function SudokuCell({ row, col, value_row }) {
 								row_--;
 							}
 							if (row_ >= 0 && data.field[row_][col_] >= 0) {
-								cell.col = col_;
-								cell.row = row_;
-								setCell({row: cell.row, col: cell.col});
+								cell.focus.col = col_;
+								cell.focus.row = row_;
+								setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
 							}
 						}
 						else if (e.key === 'ArrowDown') {
-							var col_ = cell.col;
-							var row_ = cell.row + 1;
+							var col_ = cell.focus.col;
+							var row_ = cell.focus.row + 1;
 							while (row_ <= 8 && data.field[row_][col_] < 0) {
 								if (col_ > 0 && data.field[row_][col_ - 1] >= 0) {
 									col_--;
@@ -146,15 +148,17 @@ export function SudokuCell({ row, col, value_row }) {
 								row_++;
 							}
 							if (row_ <= 8 && data.field[row_][col_] >= 0) {
-								cell.col = col_;
-								cell.row = row_;
-								setCell({row: cell.row, col: cell.col});
+								cell.focus.col = col_;
+								cell.focus.row = row_;
+								setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
 							}
 						}
 						else if (e.key === 'Enter') {
-							cell.col = col;
-							cell.row = row;
-							setCell({row: cell.row, col: cell.col});
+							cell.active.col = col;
+							cell.active.row = row;
+							cell.focus.col = col;
+							cell.focus.row = row;
+							setCell({active: {row: cell.active.row, col: cell.active.col}, focus: {row: cell.focus.row, col: cell.focus.col}});
 						}
 					}}
 					readOnly={ true }
