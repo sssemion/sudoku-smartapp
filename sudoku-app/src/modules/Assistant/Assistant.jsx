@@ -4,6 +4,7 @@ import {
     createAssistant,
 } from "@salutejs/client";
 import { AssistantContext } from "../../App";
+import Strings from "../../constants/Strings";
 
 var assistant = null;
 
@@ -27,7 +28,8 @@ export default function Assistant(props) {
 		if (data.type === "smart_app_data") {
 			if (data.action.type === "replay_with_difficulty") {
 				console.log("Replay request with difficulty: ", data.action.difficulty);
-                buttonValue.difficulty = data.action.difficulty;
+                buttonValue.value = data.action.difficulty;
+				buttonValue.label = Strings[data.action.difficulty];
 				setButtonValue(buttonValue);
 				handleStartAgainButton();
 			}

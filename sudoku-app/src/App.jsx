@@ -38,7 +38,7 @@ function App() {
 	const [verif, setVerif] = useState(false);
 
 	//выбранный уровень сложности
-	const [buttonValue, setButtonValue] = useState({difficulty: "easy"});
+	const [buttonValue, setButtonValue] = useState({value: "easy", label: Strings.easy});
 
 	//показываем ли тост сейчас или нет
 	const [toastVisible, setToastVisible] = useState(false);
@@ -79,7 +79,7 @@ function App() {
 
 	const { data, refetch } = useQuery({
 		queryKey: ['board'],
-		queryFn: () => findBoard(buttonValue.difficulty, 3),
+		queryFn: () => findBoard(buttonValue.value, 3),
 		onSuccess: data => {
 			for (let i = 0; i < data.field.length; i++) {
 				for (let j = 0; j < data.field[i].length; j++) {
@@ -114,11 +114,8 @@ function App() {
 				{mutation.isLoading && <div class="spinnerContainer"><div class="spinner"></div></div>}
 					<div className='App'>
 						<div className='ControlPanel'>
-							<div className='SelectDifficulty'>
-							<SberRadioButtons onChange={(e) => handleButtonValueChange({difficulty: e.target.value})} value={buttonValue.difficulty} ></SberRadioButtons>
-							</div>
-
 							<div className="ButtonRow">
+								<SberRadioButtons onChange={(item) => handleButtonValueChange(item)} value={buttonValue} ></SberRadioButtons>
 								<MyButton title={Strings.startAgain} onClick={handleStartAgainButton} disabled={false}></MyButton>
 								<MyButton title={Strings.check} onClick={handleClickCheckButton} disabled={!verif} ></MyButton>
 							</div>
