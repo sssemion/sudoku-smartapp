@@ -30,12 +30,13 @@ input::-webkit-inner-spin-button {
 .BoardContainer {
 	display: flex;
 	position: relative;
-	height: 0;
 	justify-content: space-around;
 	margin: 1em 0 0;
 	flex-grow: 100;
 	max-width: 100%;
+	max-height: 100%;
 	width: 100%;
+	height: 100%;
 	align-items: center;
 }
 
@@ -49,14 +50,19 @@ input::-webkit-inner-spin-button {
 
 .ButtonRow {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
+	flex-shrink: 2;
 	width: 100%;
 	justify-content: center;
-	margin: 1em 0 0
+	margin: 1em 0 0;
 }
 
-.ButtonRow > * {
-	margin: 0 1em;
+.ButtonRow button {
+	margin: 0 1em 0.5em;
+}
+
+.ButtonRow > * > button {
+	width: 100%;
 }
 
 .SelectDifficulty {
@@ -73,7 +79,8 @@ input::-webkit-inner-spin-button {
 .App {
 	padding: 1em 4em 0;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	flex-flow: row;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -116,3 +123,96 @@ input::-webkit-inner-spin-button {
 		padding: 2em 1em;
 	}
 }
+
+.ControlPanel {
+	flex-shrink: 2;
+	display: flex;
+	flex-direction: column;
+	height: fit-content;
+	padding: 0 2em 0 0;
+}
+
+.Keyboard {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.Keyboard > button {
+	width: 31%;
+	margin: 1.16%;
+}
+
+.Keyboard > button:last-child {
+	flex-grow: 1;
+	margin: 0.25em 2em;
+}
+
+.activeCell {
+	background-color: #00263b88 !important;
+	outline: 3px solid #fff !important;
+	/* outline-offset: -3px; */
+	border-radius: 6px !important;
+}
+
+.Dropdown {
+	--plasma-dropdown-padding: 0.25rem;
+	--plasma-dropdown-border-radius: 1rem;
+	--plasma-dropdown-item-border-radius: 0.75rem;
+	--plasma-popup-width: 75%;
+	--plasma-popup-nested-padding: 0 var(--plasma-dropdown-padding, 0);
+	--plasma-popup-nested-margin: calc(var(--plasma-dropdown-padding, 0) * -1) 0 0;
+	--plasma-dropdown-background: #051937d6;
+}
+
+@media (max-aspect-ratio: 3/4) {
+	.App {
+		flex-direction: column;
+		flex-flow: column-reverse;
+		padding: 0.5em;
+	}
+
+	.BoardContainer input {
+		font-size: 20px;
+	}
+
+	.BoardContainer {
+		width: fit-content;
+		padding: 0 1em;
+		max-height: 100%;
+	}
+
+	.ControlPanel {
+		flex-flow: column-reverse;
+		padding: 0;
+	}
+
+	.Keyboard > button {
+		width: 15%;
+		margin: 0.83%;
+		padding: 1em;
+	}
+
+	.Keyboard > button:last-child {
+		width: 30%;
+		margin: 0.83%;
+	}
+
+	.ButtonRow {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.ButtonRow button {
+		margin: 0.25em;
+		padding: 0.5em 1em;
+	}
+ }
+
+ @media (max-height: 700px) {
+	button {
+		font-size: 12px !important;
+	}
+ }

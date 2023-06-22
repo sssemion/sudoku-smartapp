@@ -3,6 +3,7 @@ import './App.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { findBoard, validateBoard } from './services';
 import { SudokuBoard } from './modules/SudokuBoard/SudokuBoard';
+import { Keyboard } from './modules/Keyboard/Keyboard';
 import { CustomToast } from './modules/CustomToast/CustomToast';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +13,8 @@ import SberRadioButtons from './modules/CustomRadioButton/SberRadioButtons';
 import Assistant from './modules/Assistant/Assistant';
 
 export const BoardContext = createContext({ board: [], setBoard: () => { } });
+
+export const CellContext = createContext({ cell: {row: null, col: null}, setCell: () => { } });
 
 export const AssistantContext = createContext({handleStart: () => {}, handleCheck: () => {}, setDifficulty: () => {}, buttonValue: {} });
 
@@ -35,10 +38,14 @@ function App() {
 	const [verif, setVerif] = useState(false);
 
 	//выбранный уровень сложности
-	const [buttonValue, setButtonValue] = useState({difficulty: "easy"});
+	const [buttonValue, setButtonValue] = useState({value: "easy", label: Strings.easy});
 
 	//показываем ли тост сейчас или нет
 	const [toastVisible, setToastVisible] = useState(false);
+
+	//выбранная ячейка 
+	const [cell, setCell] = useState({row: null, col: null});
+
 
 	function handleBoardChange(board) {
 		if (board) {
@@ -72,7 +79,7 @@ function App() {
 
 	const { data, refetch } = useQuery({
 		queryKey: ['board'],
-		queryFn: () => findBoard(buttonValue.difficulty, 3),
+		queryFn: () => findBoard(buttonValue.value, 3),
 		onSuccess: data => {
 			for (let i = 0; i < data.field.length; i++) {
 				for (let j = 0; j < data.field[i].length; j++) {
@@ -95,33 +102,36 @@ function App() {
 			}
 		},
 		onError: () => {
-			showToast("Пашол ты нахуй!");
+			showToast("Поле не заполнено");
 		}
 	});
 
 	return (
-		<AssistantContext.Provider value={{ handleStartAgainButton, handleClickCheckButton, setButtonValue, buttonValue }}>
-			<BoardContext.Provider value={{ data, handleBoardChange }}>
-				<Assistant />
-			{mutation.isLoading && <div class="spinnerContainer"><div class="spinner"></div></div>}
-				<div className='App'>
-					<div className='SelectDifficulty'>
-						<SberRadioButtons onChange={(e) => handleButtonValueChange({difficulty: e.target.value})} value={buttonValue.difficulty} ></SberRadioButtons>
-					</div>
+		<CellContext.Provider value={{ cell, setCell }}>
+			<AssistantContext.Provider value={{ handleStartAgainButton, handleClickCheckButton, setButtonValue, buttonValue }}>
+				<BoardContext.Provider value={{ data, handleBoardChange }}>
+					<Assistant />
+				{mutation.isLoading && <div class="spinnerContainer"><div class="spinner"></div></div>}
+					<div className='App'>
+						<div className='ControlPanel'>
+							<div className="ButtonRow">
+								<SberRadioButtons onChange={(item) => handleButtonValueChange(item)} value={buttonValue} ></SberRadioButtons>
+								<MyButton title={Strings.startAgain} onClick={handleStartAgainButton} disabled={false}></MyButton>
+								<MyButton title={Strings.check} onClick={handleClickCheckButton} disabled={!verif} ></MyButton>
+							</div>
+							<Keyboard></Keyboard>
+						</div>
+						
+						<ToastContainer toastStyle={{ backgroundColor: "#00000033" }} />
 
-					<div className="ButtonRow">
-						<MyButton title={Strings.startAgain} onClick={handleStartAgainButton} disabled={false}></MyButton>
-						<MyButton title={Strings.check} onClick={handleClickCheckButton} disabled={!verif} ></MyButton>
-					</div>
-					<ToastContainer toastStyle={{ backgroundColor: "#00000033" }} />
+						<div className='BoardContainer'>
+							<SudokuBoard board={data} />
+						</div>
 
-					<div className='BoardContainer'>
-						<SudokuBoard board={data} />
 					</div>
-
-				</div>
-			</BoardContext.Provider>
-		</AssistantContext.Provider>
+				</BoardContext.Provider>
+			</AssistantContext.Provider> 
+		</CellContext.Provider>
 	);
 }
 
