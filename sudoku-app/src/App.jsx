@@ -56,6 +56,9 @@ function App() {
 
 	function handleButtonValueChange(value) {
 		setButtonValue(value);
+		buttonValue.value = value.value;
+		buttonValue.label = value.label;
+		handleStartAgainButton();
 	}
 
 	function handleStartAgainButton() {
