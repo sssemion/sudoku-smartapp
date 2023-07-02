@@ -20,7 +20,7 @@ theme: /
 
     state: Start
         q!: * *start
-        q!: (запусти | открой | вруби) Судоку
+        q!: (запусти | открой | вруби) Увлекательное судоку
         a: Привет! Сыграем в судоку?
         script:
             $jsapi.startSession();
@@ -51,7 +51,7 @@ theme: /
             
         state: Medium
             q: * (средн*/медиум) * || fromState = /Replay, onlyThisState = true
-            a: Уверен, у вас получится! || auto_listening = false
+            a: Уверен, все получится! || auto_listening = false
             script: 
                 replayWithDifficulty("medium", $context);
             
