@@ -37,7 +37,7 @@ theme: /
 
     state: Replay
         q!: * (заново/еще раз/повтор/по новой/переигра*/реванш) *
-        a: Выберите сложность
+        a: Теперь нужно выбрать сложность
         buttons:
             "Легко" -> /Replay/Easy
             "Средне" -> /Replay/Medium
@@ -51,7 +51,7 @@ theme: /
             
         state: Medium
             q: * (средн*/медиум) * || fromState = /Replay, onlyThisState = true
-            a: Уверен, все получится! || auto_listening = false
+            a: Все получится! || auto_listening = false
             script: 
                 replayWithDifficulty("medium", $context);
             
@@ -75,4 +75,4 @@ theme: /
     state: CatchAll
         q!: *
         event!: noMatch
-        a: К сожалению, я не понимаю. Я могу рассказать правила игры, начать игру заново, или проверить поле, если вы уже завершили игру
+        a: К сожалению, я не понимаю. Я могу рассказать правила игры, начать игру заново, или проверить поле.
