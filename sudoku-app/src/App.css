@@ -463,5 +463,5 @@ input::-webkit-inner-spin-button {
  }
 
  .Toastify__toast {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: #005375eb !important;
 }
